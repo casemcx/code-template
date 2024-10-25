@@ -4,6 +4,7 @@ import pluginVitest from '@vitest/eslint-plugin'
 import pluginPlaywright from 'eslint-plugin-playwright'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
+/** @type {import('eslint').ESLint.ConfigData[]} */
 export default [
   {
     name: 'app/files-to-lint',

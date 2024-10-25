@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "cd packages/admin && pnpm dev",
-		"lint:eslint": "eslint . --ext .vue,.ts,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+		"lint:eslint": "eslint .  --fix ",
 		"lint:prettier": "prettier --write  \"packages/**/src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
 		"lefthook": "lefthook install",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
@@ -21,12 +21,12 @@
 		"commitizen": "^4.3.0",
 		"cz-git": "^1.9.4",
 		"lefthook": "^1.7.11",
+    "prettier": "^3.3.3",
+    "@vitest/eslint-plugin": "1.1.7",
     "@vue/eslint-config-prettier": "^10.0.0",
-    "@vue/eslint-config-typescript": "^14.0.0",
     "eslint": "^9.12.0",
     "eslint-plugin-playwright": "^1.6.2",
-    "eslint-plugin-vue": "^9.28.0",
-    "prettier": "^3.3.3"
+    "eslint-plugin-vue": "^9.28.0"
 	},
 	"workspaces": [
 		"packages/*",

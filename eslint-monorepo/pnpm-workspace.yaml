@@ -17,5 +17,5 @@ catalogs:
     '@vitejs/plugin-vue-jsx': ^4.0.0
     vite-plugin-vue-devtools: ^7.3.1
     vitest: ^1.6.0
-		'@playwright/test': ^1.44.1
+    '@playwright/test': ^1.44.1
     'eslint-plugin-playwright': ^1.6.2
