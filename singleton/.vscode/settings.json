@@ -1,0 +1,10 @@
+{
+    "editor.guides.bracketPairs":"active",  // 控制是否启用。active: 仅为活动括号对启用水平参考线
+    "editor.guides.bracketPairsHorizontal": "active",
+    "cSpell.words": [
+        "CORPID",
+        "msgtype",
+        "VITE",
+        "Wechat"
+    ]
+}

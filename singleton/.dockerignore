@@ -1,0 +1,37 @@
+# Logs
+logs
+*.log*
+
+# node
+node_modules
+.husky
+.next
+
+# vscode
+.vscode
+
+# webstorm
+.idea
+*.iml
+*.iws
+*.ipr
+
+
+# Jetbrains
+.idea
+
+# build
+.turbo
+dist
+
+# lib
+submodule
+
+# apps
+apps
+!apps/package.json
+!apps/tsconfig.json
+
+# env
+!.env
+.env.*

@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  fe-notify:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - '3022:3020'
+    restart: always

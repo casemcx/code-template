@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"declaration": true,
+		"moduleResolution": "Node",
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "ES2021",
+		"sourceMap": true,
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"strictBindCallApply": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["vite/client", "jest"],
+		"paths": {
+			"@/*": ["./src/*"],
+      "@templates": ["./templates/index.ts"]
+		}
+	},
+	"include": ["src", "vite.config.ts", "templates", "ecosystem.config.cjs", "test"]
+}
