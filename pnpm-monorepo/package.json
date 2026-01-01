@@ -1,0 +1,52 @@
+{
+  "name": "semi-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "biome check --write",
+    "clean": "rimraf **/node_modules && rimraf node_modules",
+    "prepare": "lefthook install",
+    "commit": "git status && git add -A && git-cz && git push",
+    "reset": "npx rimraf node_modules ./**/node_modules",
+    "dev": "turbo run dev --parallel"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "dependencies": {
+    "axios": "catalog:utils",
+    "lodash-es": "catalog:utils",
+    "npm-run-all": "^4.1.5",
+    "qs": "catalog:utils"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:lint",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "@tailwindcss/postcss": "catalog:tailwindcss",
+    "@types/lodash-es": "catalog:utils",
+    "@types/node": "catalog:node",
+    "@types/qs": "catalog:utils",
+    "clsx": "catalog:tailwindcss",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.7.0",
+    "lefthook": "^2.0.4",
+    "postcss": "catalog:tailwindcss",
+    "postcss-loader": "catalog:tailwindcss",
+    "rimraf": "^6.0.1",
+    "tailwind-merge": "catalog:tailwindcss",
+    "tailwindcss": "catalog:tailwindcss",
+    "turbo": "^2.4.0",
+    "typescript": "catalog:node"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "engines": {
+    "node": "22.18.0"
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Typography, Button } from 'antd';
 import { history } from 'umi';
 import {
@@ -51,9 +51,20 @@ export default function IndexPage() {
     },
   ];
 
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    console.log('value is change')
+
+    return () => {
+      console.log('value is update')
+    }
+  }, [value])
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <input value={value} onChange={(e) => setValue(e.target.value)} />
         <Title level={1} className={styles.title}>
           Ant Design 表单示例集
         </Title>
