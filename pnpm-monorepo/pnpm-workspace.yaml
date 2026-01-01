@@ -12,9 +12,15 @@ catalogs:
     "@types/qs": 6.14.0
     "@types/lodash-es": 4.17.12
 
+  git:
+    commitizen: ^4.3.0
+    cz-git: ^1.7.0
+    lefthook: ^2.0.4
+    "@commitlint/cli": ^17.6.7
+    "@commitlint/config-conventional": ^17.6.7
+
   lint:
     "@biomejs/biome": 1.9.4
-    simple-git-hooks: ^2.11.1
     lint-staged: ~15.4.0
 
   node:
