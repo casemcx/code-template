@@ -1,3 +1,4 @@
 {
-  "name": "pnpm monorepo"
+  "name": "pnpm monorepo",
+  "order": 1
 }
