@@ -4,73 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  lint:
-    '@biomejs/biome':
-      specifier: 1.9.4
-      version: 1.9.4
-  node:
-    '@types/node':
-      specifier: 18.11.9
-      version: 18.11.9
-    typescript:
-      specifier: ~5.7.3
-      version: 5.7.3
-  tailwindcss:
-    '@tailwindcss/postcss':
-      specifier: ^4.1.16
-      version: 4.1.16
-    clsx:
-      specifier: ^2.1.1
-      version: 2.1.1
-    postcss:
-      specifier: ^8.5.3
-      version: 8.5.6
-    postcss-loader:
-      specifier: ^8.1.1
-      version: 8.2.0
-    tailwind-merge:
-      specifier: ^3.2.0
-      version: 3.3.1
-    tailwindcss:
-      specifier: ^3.4.18
-      version: 3.4.18
-  utils:
-    '@types/lodash-es':
-      specifier: 4.17.12
-      version: 4.17.12
-    '@types/qs':
-      specifier: 6.14.0
-      version: 6.14.0
-    axios:
-      specifier: ^1.8.4
-      version: 1.13.1
-    lodash-es:
-      specifier: 4.17.21
-      version: 4.17.21
-    qs:
-      specifier: 6.14.0
-      version: 6.14.0
-
 importers:
 
   .:
     dependencies:
       axios:
-        specifier: catalog:utils
+        specifier: ^1.8.4
         version: 1.13.1
       lodash-es:
-        specifier: catalog:utils
+        specifier: 4.17.21
         version: 4.17.21
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
       qs:
-        specifier: catalog:utils
+        specifier: 6.14.0
         version: 6.14.0
     devDependencies:
       '@biomejs/biome':
-        specifier: catalog:lint
+        specifier: 1.9.4
         version: 1.9.4
       '@commitlint/cli':
         specifier: ^17.6.7
@@ -79,19 +31,19 @@ importers:
         specifier: ^17.6.7
         version: 17.8.1
       '@tailwindcss/postcss':
-        specifier: catalog:tailwindcss
+        specifier: ^4.1.16
         version: 4.1.16
       '@types/lodash-es':
-        specifier: catalog:utils
+        specifier: 4.17.12
         version: 4.17.12
       '@types/node':
-        specifier: catalog:node
+        specifier: 18.11.9
         version: 18.11.9
       '@types/qs':
-        specifier: catalog:utils
+        specifier: 6.14.0
         version: 6.14.0
       clsx:
-        specifier: catalog:tailwindcss
+        specifier: ^2.1.1
         version: 2.1.1
       commitizen:
         specifier: ^4.3.0
@@ -103,25 +55,25 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4
       postcss:
-        specifier: catalog:tailwindcss
+        specifier: ^8.5.3
         version: 8.5.6
       postcss-loader:
-        specifier: catalog:tailwindcss
+        specifier: ^8.1.1
         version: 8.2.0(@rspack/core@1.5.0(@swc/helpers@0.5.17))(postcss@8.5.6)(typescript@5.7.3)(webpack@5.102.1(@swc/core@1.14.0(@swc/helpers@0.5.17)))
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
       tailwind-merge:
-        specifier: catalog:tailwindcss
+        specifier: ^3.2.0
         version: 3.3.1
       tailwindcss:
-        specifier: catalog:tailwindcss
+        specifier: ^3.4.18
         version: 3.4.18(tsx@4.21.0)(yaml@2.8.1)
       turbo:
         specifier: ^2.4.0
         version: 2.6.0
       typescript:
-        specifier: catalog:node
+        specifier: ~5.7.3
         version: 5.7.3
 
   packages/share: {}
@@ -803,12 +755,6 @@ packages:
 
   '@types/node@20.5.1':
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
-
-  '@types/node@22.19.0':
-    resolution: {integrity: sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==}
-
-  '@types/node@24.9.2':
-    resolution: {integrity: sha512-uWN8YqxXxqFMX2RqGOrumsKeti4LlmIMIyV0lgut4jx7KQBcBiW6vkDtIBvHnHIquwNfJhk8v2OtmO8zXWHfPA==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2820,20 +2766,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   unbox-primitive@1.1.0:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
-
-  undici-types@6.21.0:
-    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
-
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
@@ -3064,14 +2999,14 @@ snapshots:
       '@commitlint/types': 17.8.1
       '@types/node': 20.5.1
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.8.3)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.8.3))(ts-node@10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@20.5.1)(typescript@5.8.3))(typescript@5.8.3)
+      cosmiconfig: 8.3.6(typescript@5.7.3)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.7.3))(ts-node@10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@20.5.1)(typescript@5.7.3))(typescript@5.7.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
       ts-node: 10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@18.11.9)(typescript@5.7.3)
-      typescript: 5.8.3
+      typescript: 5.7.3
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -3551,7 +3486,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.2':
     dependencies:
-      '@types/node': 22.19.0
+      '@types/node': 18.11.9
     optional: true
 
   '@types/eslint-scope@3.7.7':
@@ -3583,16 +3518,6 @@ snapshots:
   '@types/node@18.11.9': {}
 
   '@types/node@20.5.1': {}
-
-  '@types/node@22.19.0':
-    dependencies:
-      undici-types: 6.21.0
-    optional: true
-
-  '@types/node@24.9.2':
-    dependencies:
-      undici-types: 7.16.0
-    optional: true
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -3990,12 +3915,12 @@ snapshots:
       meow: 8.1.2
       split2: 3.2.2
 
-  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.8.3))(ts-node@10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@20.5.1)(typescript@5.8.3))(typescript@5.8.3):
+  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.7.3))(ts-node@10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@20.5.1)(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
       '@types/node': 20.5.1
-      cosmiconfig: 8.3.6(typescript@5.8.3)
+      cosmiconfig: 8.3.6(typescript@5.7.3)
       ts-node: 10.9.2(@swc/core@1.14.0(@swc/helpers@0.5.17))(@types/node@18.11.9)(typescript@5.7.3)
-      typescript: 5.8.3
+      typescript: 5.7.3
 
   cosmiconfig-typescript-loader@6.2.0(@types/node@18.11.9)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
@@ -4005,14 +3930,14 @@ snapshots:
       typescript: 5.7.3
     optional: true
 
-  cosmiconfig@8.3.6(typescript@5.8.3):
+  cosmiconfig@8.3.6(typescript@5.7.3):
     dependencies:
       import-fresh: 3.3.1
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.7.3
 
   cosmiconfig@9.0.0(typescript@5.7.3):
     dependencies:
@@ -4754,7 +4679,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 24.9.2
+      '@types/node': 18.11.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
     optional: true
@@ -5777,20 +5702,12 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  typescript@5.8.3: {}
-
   unbox-primitive@1.1.0:
     dependencies:
       call-bound: 1.0.4
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
-
-  undici-types@6.21.0:
-    optional: true
-
-  undici-types@7.16.0:
-    optional: true
 
   universalify@2.0.1: {}
 
