@@ -42,6 +42,6 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".vscode", "node_modules", "dist", "auto-imports.d.ts", "server"]
+    "ignore": [".vscode/**/*", "node_modules/**/*", "dist/**/*"]
   }
 }

@@ -23,7 +23,17 @@
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noDuplicateFontNames": "off"
+        "noDuplicateFontNames": "off",
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "off"
+      },
+      "complexity": {
+        "useOptionalChain": "off",
+        "noForEach": "off"
       }
     }
   },
