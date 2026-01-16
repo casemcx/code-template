@@ -1,23 +1,16 @@
 {
-  "name": "baseic-ts",
+  "name": "basic-ts",
   "version": "0.1.0",
   "scripts": {
-    "reset": "npx rimraf node_modules ./**/node_modules"
-  },
-  "dependencies": {
-    "axios": "^1.8.4",
-    "lodash-es": "4.17.21",
-    "npm-run-all": "^4.1.5",
-    "qs": "6.14.0"
+    "reset": "npx rimraf node_modules ./**/node_modules",
+    "prepare": "lefthook install",
+    "commit": "git status && git add -A && git-cz && git push"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
-    "@types/jest": "~29.2.4",
-    "@types/lodash-es": "4.17.12",
     "@types/node": "~18.11.9",
-    "@types/qs": "6.14.0",
     "clsx": "^2.1.1",
     "commitizen": "^4.3.0",
     "cz-git": "^1.7.0",
