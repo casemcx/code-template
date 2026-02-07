@@ -1,0 +1,68 @@
+import type { Permission } from '@/constants';
+import type { UserInfo } from '@/types';
+
+/**
+ * @description 用户状态store类型
+ */
+export type UserState = {
+  /**
+   * @description 用户信息
+   */
+  userInfo?: UserInfo;
+  /**
+   * @description 认证token
+   */
+  token?: string;
+  /**
+   * @description 是否已登录
+   */
+  isAuthenticated?: boolean;
+  /**
+   * @description 是否正在加载
+   */
+  loading?: boolean;
+
+  /**
+   * @description 角色
+   */
+  roles: string[];
+  /**
+   * @description 权限
+   */
+  permissions: Permission[];
+};
+
+/**
+ * @description 用户状态操作类型
+ */
+export type UserActions = {
+  /**
+   * @description 设置用户信息
+   */
+  setUserInfo: (userInfo?: UserInfo) => void;
+  /**
+   * @description 设置token
+   */
+  setToken: (token?: string) => void;
+  /**
+   * @description 更新用户信息
+   */
+  updateUserInfo: (updates: Partial<UserInfo>) => void;
+  /**
+   * @description 设置加载状态
+   */
+  setLoading: (loading: boolean) => void;
+  /**
+   * @description 设置角色
+   */
+  setRoles: (roles: string[]) => void;
+  /**
+   * @description 设置权限
+   */
+  setPermissions: (permissions: Permission[]) => void;
+};
+
+/**
+ * @description 完整的用户store类型
+ */
+export type UserStore = UserState & UserActions;

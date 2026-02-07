@@ -1,0 +1,30 @@
+.pro-layout {
+  &:global(.semi-layout) {
+    .semi-layout-header {
+      flex-shrink: 0;
+      height: 64px;
+      line-height: 64px;
+      background: var(--semi-color-bg-1);
+      border-bottom: 1px solid var(--semi-color-border);
+    }
+
+    &.semi-layout-has-sider {
+      flex: 1;
+      height: 0;
+    }
+
+    .semi-layout-sider {
+      background: var(--semi-color-bg-1);
+
+      .semi-navigation {
+        .semi-navigation-sub {
+          padding-left: 15px;
+        }
+      }
+    }
+
+    .semi-layout-content {
+      background: var(--semi-color-bg-0);
+    }
+  }
+}

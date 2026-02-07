@@ -1,0 +1,7 @@
+dist/
+node_modules/
+*.min.css
+*.js
+*.ts
+*.jsx
+*.tsx

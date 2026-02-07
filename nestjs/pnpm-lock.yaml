@@ -50,6 +50,9 @@ importers:
       fastify-swagger:
         specifier: ^5.2.0
         version: 5.2.0
+      lodash-es:
+        specifier: ^4.17.23
+        version: 4.17.23
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -93,6 +96,9 @@ importers:
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^22.10.7
         version: 22.19.5
@@ -1273,6 +1279,12 @@ packages:
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+
+  '@types/lodash@4.17.23':
+    resolution: {integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==}
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
@@ -3317,6 +3329,9 @@ packages:
 
   lodash-compat@3.10.2:
     resolution: {integrity: sha512-k8SE/OwvWfYZqx3MA/Ry1SHBDWre8Z8tCs0Ba0bF5OqVNvymxgFZ/4VDtbTxzTvcoG11JpTMFsaeZp/yGYvFnA==}
+
+  lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
 
   lodash._arraypool@2.4.1:
     resolution: {integrity: sha512-tC2aLC7bbkDXKNrjDu9OLiVx9pFIvjinID2eD9PzNdAQGZScWUd/h8faqOw5d6oLsOvFRCRbz1ASoB+deyMVUw==}
@@ -6361,6 +6376,12 @@ snapshots:
     dependencies:
       '@types/node': 22.19.5
 
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.23
+
+  '@types/lodash@4.17.23': {}
+
   '@types/methods@1.1.4': {}
 
   '@types/node@22.19.5':
@@ -8797,6 +8818,8 @@ snapshots:
       p-locate: 4.1.0
 
   lodash-compat@3.10.2: {}
+
+  lodash-es@4.17.23: {}
 
   lodash._arraypool@2.4.1: {}
 

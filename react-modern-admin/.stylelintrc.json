@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/stylelintrc",
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recess-order",
+    "stylelint-config-tailwindcss"
+  ],
+  "plugins": ["stylelint-order", "@stylistic/stylelint-plugin"],
+  "customSyntax": "postcss-less",
+  "rules": {
+    "@stylistic/indentation": 2,
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "declaration-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "layer",
+          "apply",
+          "variants",
+          "responsive",
+          "screen"
+        ]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["theme"]
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global", "local"]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.css"],
+      "customSyntax": "postcss"
+    }
+  ],
+  "ignoreFiles": [
+    "dist/**/*",
+    "node_modules/**/*",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.tsx"
+  ]
+}

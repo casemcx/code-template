@@ -1,0 +1,17 @@
+.pro-form-item-readonly {
+  min-height: 32px;
+  padding: 8px 0;
+}
+
+.pro-form-item-label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--semi-color-text-0);
+}
+
+.pro-form-item-value {
+  font-size: 14px;
+  color: var(--semi-color-text-1);
+  overflow-wrap: break-word;
+}

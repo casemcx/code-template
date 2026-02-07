@@ -53,7 +53,6 @@ async function bootstrap() {
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json'],
-      tags: [{ name: '权限管理', description: '权限管理相关接口' }],
       securityDefinitions: {
         Bearer: {
           type: 'apiKey',
