@@ -8,6 +8,7 @@
     "start": "modern start",
     "serve": "modern serve",
     "new": "modern new",
+    "lefthook": "^2.0.4",
     "lint": "run-p lint:*",
     "lint:type": "tsc --noEmit",
     "lint:fix": "biome check --write",
