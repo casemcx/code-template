@@ -1,0 +1,13 @@
+{
+  "openai": {
+    "name": "OpenAI",
+    "models": {
+      "dashscope/deepseek-v4-flash": {
+        "id": "dashscope/deepseek-v4-flash"
+      },
+      "dashscope/deepspeed-v4-pro": {
+        "id": "dashscope/deepseek-v4-pro"
+      }
+    }
+  }
+}

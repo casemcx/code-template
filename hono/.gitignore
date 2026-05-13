@@ -1,0 +1,8 @@
+# deps
+node_modules/
+config/config.toml
+!config/config.example.toml
+
+config/provider.json
+!config/provider.example.json
+dist
