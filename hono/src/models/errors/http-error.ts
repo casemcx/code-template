@@ -2,13 +2,13 @@ import { ResultCode } from '@/models/result/result-code';
 
 export class HttpError extends Error {
   readonly code: ResultCode;
-  readonly status: number;
+  // biome-ignore lint/suspicious/noExplicitAny: any is used to store any type of data
+  error?: any;
 
-  constructor(code: ResultCode, message: string, status?: number) {
+  constructor(code: ResultCode, message: string) {
     super(message);
     this.name = 'HttpError';
     this.code = code;
-    this.status = status ?? Number(code);
   }
 }
 
@@ -60,11 +60,9 @@ export type ValidationIssue = {
 };
 
 export class ValidateError extends HttpError {
-  readonly issues: ValidationIssue[];
-
   constructor(issues: ValidationIssue[]) {
     super(ResultCode.VALIDATION_ERROR, '请求参数校验失败');
     this.name = 'ValidateError';
-    this.issues = issues;
+    this.error = issues;
   }
 }

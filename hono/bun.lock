@@ -7,6 +7,7 @@
         "@hono/zod-validator": "^0.8.0",
         "@opencode-ai/sdk": "^1.14.48",
         "hono": "^4.12.18",
+        "hono-rate-limiter": "^0.5.3",
         "lefthook": "^2.1.6",
         "lodash-es": "^4.18.1",
         "toml": "^4.1.1",
@@ -238,6 +239,8 @@
     "homedir-polyfill": ["homedir-polyfill@1.0.3", "http://registry.npm.oa.com/homedir-polyfill/-/homedir-polyfill-1.0.3.tgz", { "dependencies": { "parse-passwd": "^1.0.0" } }, "sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA=="],
 
     "hono": ["hono@4.12.18", "http://registry.npm.oa.com/hono/-/hono-4.12.18.tgz", {}, "sha512-RWzP96k/yv0PQfyXnWjs6zot20TqfpfsNXhOnev8d1InAxubW93L11/oNUc3tQqn2G0bSdAOBpX+2uDFHV7kdQ=="],
+
+    "hono-rate-limiter": ["hono-rate-limiter@0.5.3", "https://registry.npmmirror.com/hono-rate-limiter/-/hono-rate-limiter-0.5.3.tgz", { "peerDependencies": { "hono": "^4.10.8", "unstorage": "^1.17.3" }, "optionalPeers": ["unstorage"] }, "sha512-M0DxbVMpPELEzLi0AJg1XyBHLGJXz7GySjsPoK+gc5YeeBsdGDGe+2RvVuCAv8ydINiwlbxqYMNxUEyYfRji/A=="],
 
     "iconv-lite": ["iconv-lite@0.4.24", "http://registry.npm.oa.com/iconv-lite/-/iconv-lite-0.4.24.tgz", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3" } }, "sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA=="],
 

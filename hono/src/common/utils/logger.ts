@@ -1,9 +1,9 @@
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 export class Logger {
-  private readonly prefix: string;
+  private readonly module: string;
   constructor(module: string) {
-    this.prefix = `${new Date().toISOString()} [${module}]`;
+    this.module = module;
   }
 
   debug(msg: string, ...args: unknown[]): void {
@@ -23,6 +23,7 @@ export class Logger {
   }
 
   private log(level: LogLevel, msg: string, args: unknown[]): void {
-    console[level](`${this.prefix} ${msg}`, ...args);
+    const prefix = `${new Date().toISOString()} [${this.module}]`;
+    console[level](`${prefix} ${msg}`, ...args);
   }
 }

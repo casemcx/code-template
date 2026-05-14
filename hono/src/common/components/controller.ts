@@ -1,5 +1,3 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: 公共组件 */
-
 import { type Context, Hono } from 'hono';
 import {
   Result,
@@ -20,11 +18,14 @@ export abstract class Controller extends Component {
 
   abstract init(): Hono;
 
-  protected success<T = any>(ctx: Context, result: ResultSuccessOptions<T>) {
+  protected success<T = unknown>(
+    ctx: Context,
+    result: ResultSuccessOptions<T>,
+  ) {
     return ctx.json(Result.success<T>(result));
   }
 
-  protected error<T = any>(ctx: Context, result: ResultErrorOptions<T>) {
+  protected error<T = unknown>(ctx: Context, result: ResultErrorOptions<T>) {
     return ctx.json(Result.error<T>(result));
   }
 

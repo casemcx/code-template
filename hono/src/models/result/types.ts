@@ -5,8 +5,7 @@ export type ResultOptions<T = unknown> = {
   code: ResultCode;
   message: string;
   data?: T;
-  // biome-ignore lint/suspicious/noExplicitAny: any
-  error?: any;
+  error?: unknown;
 };
 
 export type ResultSuccessOptions<T = unknown> = ResultInterface<T, 'data'>;

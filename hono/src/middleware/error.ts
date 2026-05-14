@@ -1,6 +1,6 @@
 import type { Context, ErrorHandler, NotFoundHandler } from 'hono';
 import { Logger } from '@/common/utils';
-import { HttpError, ValidateError } from '@/models/errors';
+import { HttpError } from '@/models/errors';
 import { Result, ResultCode } from '@/models/result';
 
 const log = new Logger('error');
@@ -13,32 +13,26 @@ function getErrorMessage(error: unknown): string {
 }
 
 export const onError: ErrorHandler = (error: Error, ctx: Context) => {
-  if (error instanceof ValidateError) {
-    log.warn(`${ctx.req.method} ${ctx.req.path} -> 400 ${error.message}`);
+  const id = ctx.get('requestId') as string | undefined;
+  log.error(
+    `[${id || '-'}] ${ctx.req.method} ${ctx.req.path} -> 500 ${getErrorMessage(error)}`,
+    error,
+  );
+  if (error instanceof HttpError) {
+    log.warn(
+      `[${id || '-'}] ${ctx.req.method} ${ctx.req.path} -> ${error.code} ${error.message}`,
+    );
+    ctx.res.headers.set('X-Request-Id', id || '');
     return ctx.json(
       Result.error({
         code: error.code,
         message: error.message,
-        error: error.issues,
+        error: error.error,
       }),
-      error.status as never,
     );
   }
 
-  if (error instanceof HttpError) {
-    log.warn(
-      `${ctx.req.method} ${ctx.req.path} -> ${error.code} ${error.message}`,
-    );
-    return ctx.json(
-      Result.error({ code: error.code, message: error.message }),
-      error.status as never,
-    );
-  }
-
-  log.error(
-    `${ctx.req.method} ${ctx.req.path} -> 500 ${getErrorMessage(error)}`,
-    error,
-  );
+  ctx.res.headers.set('X-Request-Id', id || '');
   return ctx.json(
     Result.error({
       code: ResultCode.INTERNAL_SERVER_ERROR,
@@ -49,7 +43,11 @@ export const onError: ErrorHandler = (error: Error, ctx: Context) => {
 };
 
 export const notFound: NotFoundHandler = (ctx: Context) => {
-  log.warn(`${ctx.req.method} ${ctx.req.path} -> 404 路由未找到`);
+  const id = ctx.get('requestId') as string | undefined;
+  log.warn(
+    `[${id || '-'}] ${ctx.req.method} ${ctx.req.path} -> 404 路由未找到`,
+  );
+  ctx.res.headers.set('X-Request-Id', id || '');
   return ctx.json(
     Result.error({
       code: ResultCode.NOT_FOUND,
