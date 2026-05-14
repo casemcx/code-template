@@ -14,7 +14,11 @@ export class HomeController extends Controller {
       validate(
         'param',
         z.object({
-          id: z.string().regex(/^\d{5}$/, 'id不合法'),
+          id: z
+            .string()
+            .regex(/^\d{5}$/, 'id不合法')
+            .optional()
+            .default('12345'),
         }),
       ),
       this.get(),
