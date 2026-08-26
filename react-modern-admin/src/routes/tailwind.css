@@ -1,13 +1,4 @@
-@layer tailwind-base, semi, tailwind-components, tailwind-utils;
-
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-components {
-  @tailwind components;
-}
-
-@layer tailwind-utils {
-  @tailwind utilities;
-}
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@config '../../tailwind.config.ts';
+@source '../../src/**/*.{js,jsx,ts,tsx}';

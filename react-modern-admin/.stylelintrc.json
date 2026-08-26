@@ -22,7 +22,14 @@
           "apply",
           "variants",
           "responsive",
-          "screen"
+          "screen",
+          "config",
+          "theme",
+          "custom-variant",
+          "source",
+          "utility",
+          "variant",
+          "plugin"
         ]
       }
     ],

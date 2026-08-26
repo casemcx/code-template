@@ -1,12 +1,12 @@
+import './semi-layer.css';
+import './tailwind.css';
+import './index.css';
+
 import { Outlet } from '@modern-js/runtime/router';
 
 import { ConfigProvider } from '@douyinfe/semi-ui';
-import '@douyinfe/semi-ui/dist/css/semi.min.css';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
-
-import './tailwind.css';
-import './index.css';
 
 // 初始化i18n
 import '@/locales';

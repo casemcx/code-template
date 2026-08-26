@@ -3,7 +3,8 @@ import type { Config } from 'tailwindcss';
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    colors: {
+    extend: {
+      colors: {
       'semi-color-white': 'var(--semi-color-white)',
       'semi-color-black': 'var(--semi-color-black)',
       'semi-color-primary': 'var(--semi-color-primary)',
@@ -115,14 +116,16 @@ export default {
       'semi-color-data-17': 'var(--semi-color-data-17)',
       'semi-color-data-18': 'var(--semi-color-data-18)',
       'semi-color-data-19': 'var(--semi-color-data-19)',
-    },
-    extend: {
-      'semi-border-radius-extra-small': 'var(--semi-border-radius-extra-small)',
-      'semi-border-radius-small': 'var(--semi-border-radius-small)',
-      'semi-border-radius-medium': 'var(--semi-border-radius-medium)',
-      'semi-border-radius-large': 'var(--semi-border-radius-large)',
-      'semi-border-radius-circle': 'var(--semi-border-radius-circle)',
-      'semi-border-radius-full': 'var(--semi-border-radius-full)',
+      },
+      borderRadius: {
+        'semi-border-radius-extra-small':
+          'var(--semi-border-radius-extra-small)',
+        'semi-border-radius-small': 'var(--semi-border-radius-small)',
+        'semi-border-radius-medium': 'var(--semi-border-radius-medium)',
+        'semi-border-radius-large': 'var(--semi-border-radius-large)',
+        'semi-border-radius-circle': 'var(--semi-border-radius-circle)',
+        'semi-border-radius-full': 'var(--semi-border-radius-full)',
+      },
     },
   },
 } satisfies Config;

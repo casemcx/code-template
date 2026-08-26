@@ -63,7 +63,7 @@ export const useProTableInstance = <T extends BasicRecord>(
   } = options;
 
   // 表单实例引用
-  const formRef = useRef<FormInstance<Record<string, unknown>>>();
+  const formRef = useRef<FormInstance<Record<string, unknown>>>(undefined);
 
   // 获取行的 key
   const getRowKey = useCallback(

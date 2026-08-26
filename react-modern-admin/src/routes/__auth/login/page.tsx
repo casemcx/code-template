@@ -45,6 +45,7 @@ export default function LoginPage() {
           />
           <Button
             type="primary"
+            theme="solid"
             htmlType="submit"
             block
             loading={loading}

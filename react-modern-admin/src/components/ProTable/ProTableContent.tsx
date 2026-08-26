@@ -17,7 +17,7 @@ const ProTableContent = <T extends BasicRecord>(
     return convertToSemiColumns(columns, actionRef);
   }, [columns, actionRef]);
 
-  return <Table<T> {...restProps} columns={semiColumns} />;
+  return <Table<T> bordered {...restProps} columns={semiColumns} />;
 };
 
 ProTableContent.displayName = 'ProTableContent';

@@ -1,10 +1,10 @@
 import { SemiRspackPlugin } from '@douyinfe/semi-rspack-plugin';
 import { appTools, defineConfig } from '@modern-js/app-tools';
 import { polyfillPlugin } from '@modern-js/plugin-polyfill';
-import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { pluginSvgr } from '@rsbuild/plugin-svgr';
+import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { pluginGlsl } from 'rsbuild-plugin-glsl';
-import { rspack as AutoImport } from 'unplugin-auto-import';
+import AutoImport from 'unplugin-auto-import/rspack';
 
 export const define = Object.keys(process.env)
   .filter(key => key.startsWith('PUBLIC_'))
@@ -20,9 +20,6 @@ export const define = Object.keys(process.env)
 
 // https://modernjs.dev/en/configure/app/usage
 export default defineConfig({
-  runtime: {
-    router: true,
-  },
   source: {
     // 定义环境变量，使其在客户端代码中可用
     define,
@@ -41,16 +38,8 @@ export default defineConfig({
     },
   },
   output: {
-    polyfill: 'ua',
     sourceMap: true,
   },
-  plugins: [
-    tailwindcssPlugin(),
-    pluginGlsl(),
-    pluginSvgr(),
-    appTools({
-      bundler: 'rspack', // Set to 'webpack' to enable webpack
-    }),
-    polyfillPlugin(),
-  ],
+  plugins: [appTools(), polyfillPlugin()],
+  builderPlugins: [pluginTailwindcss(), pluginGlsl(), pluginSvgr()],
 });

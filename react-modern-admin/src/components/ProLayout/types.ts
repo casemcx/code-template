@@ -1,26 +1,15 @@
-import type { AvatarProps } from '@douyinfe/semi-ui/lib/es/avatar/interface';
-import type { DropDownMenuItem } from '@douyinfe/semi-ui/lib/es/dropdown';
-import type {
-  NavItems,
-  NavProps,
-  OnSelectedData,
-} from '@douyinfe/semi-ui/lib/es/navigation';
-import type {
-  ItemKey,
-  NavItemProps,
-} from '@douyinfe/semi-ui/lib/es/navigation/Item';
-import type { CSSProperties, ReactNode } from 'react';
+import type { Avatar, Dropdown, Nav, NavItem } from '@douyinfe/semi-ui';
+import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 
-// Re-export Semi types for convenience
-export type {
-  NavItems,
-  NavProps,
-  OnSelectedData,
-  ItemKey,
-  NavItemProps,
-  DropDownMenuItem,
-  AvatarProps,
-};
+export type NavProps = ComponentProps<typeof Nav>;
+export type NavItems = NavProps['items'];
+export type OnSelectedData = Parameters<NonNullable<NavProps['onSelect']>>[0];
+export type NavItemProps = ComponentProps<typeof NavItem>;
+export type ItemKey = NonNullable<NavItemProps['itemKey']>;
+export type AvatarProps = ComponentProps<typeof Avatar>;
+export type DropDownMenuItem = NonNullable<
+  ComponentProps<typeof Dropdown>['menu']
+>[number];
 
 /**
  * Header 操作按钮配置

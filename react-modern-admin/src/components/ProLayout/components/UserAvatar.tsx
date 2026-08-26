@@ -1,10 +1,9 @@
 import { useLocale } from '@/locales';
 import { IconExit } from '@douyinfe/semi-icons';
 import { Avatar, Dropdown, Modal } from '@douyinfe/semi-ui';
-import type { DropDownMenuItem } from '@douyinfe/semi-ui/lib/es/dropdown';
 import { memo, useCallback, useMemo } from 'react';
 import type { FC } from 'react';
-import type { UserAvatarProps } from '../types';
+import type { DropDownMenuItem, UserAvatarProps } from '../types';
 
 /**
  * 用户头像下拉菜单组件

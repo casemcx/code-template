@@ -28,7 +28,7 @@ const ProForm = <T extends BasicRecord = any>({
   inlineAction,
   ...formProps
 }: ProFormProps<T>) => {
-  const formApiRef = useRef<FormInstance<T>>();
+  const formApiRef = useRef<FormInstance<T>>(undefined);
 
   useImperativeHandle(formRef, () => formApiRef.current);
 

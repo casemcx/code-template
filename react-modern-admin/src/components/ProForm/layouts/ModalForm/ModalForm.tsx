@@ -27,7 +27,7 @@ const ModalForm = <T extends BasicRecord>(props: ModalFormProps<T>) => {
     ...rests
   } = props;
 
-  const formRef = useRef<FormInstance<T>>();
+  const formRef = useRef<FormInstance<T>>(undefined);
 
   useImperativeHandle(propsFormRef, () => formRef.current);
 

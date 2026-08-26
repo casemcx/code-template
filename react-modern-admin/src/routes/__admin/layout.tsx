@@ -1,9 +1,13 @@
 import { IconBell, IconExit, IconHelpCircle } from '@douyinfe/semi-icons';
-import type { DropDownMenuItem } from '@douyinfe/semi-ui/lib/es/dropdown';
-import type { OnSelectedData } from '@douyinfe/semi-ui/lib/es/navigation';
 import { useLocation, useNavigate } from '@modern-js/runtime/router';
 
-import { type HeaderActionConfig, LangSwitch, ProLayout } from '@/components';
+import { LangSwitch } from '@/components/LangSwitch';
+import {
+  type DropDownMenuItem,
+  type HeaderActionConfig,
+  type OnSelectedData,
+  ProLayout,
+} from '@/components/ProLayout';
 import { useLocale } from '@/locales';
 import { useUserStore } from '@/stores/user';
 import { userMenuItems } from './menu-items';

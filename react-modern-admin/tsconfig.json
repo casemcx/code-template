@@ -1,12 +1,18 @@
 {
   "extends": "@modern-js/tsconfig/base",
   "compilerOptions": {
+    "skipLibCheck": true,
     "declaration": false,
     "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@douyinfe/semi-icons": [
+        "./node_modules/@douyinfe/semi-icons/lib/es/index"
+      ]
     }
   },
   "include": [
