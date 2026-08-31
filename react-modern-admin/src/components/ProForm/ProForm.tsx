@@ -1,6 +1,6 @@
 import type { BasicRecord } from '@/types/mapping';
 import { clsx } from '@/utils';
-import { Form, Row } from '@douyinfe/semi-ui';
+import { Col, Form, Row } from '@douyinfe/semi-ui';
 import { useRequest } from 'ahooks';
 import { useCallback, useMemo } from 'react';
 import FormAction from './FormAction';
@@ -64,23 +64,46 @@ const ProForm = <T extends BasicRecord = any>({
         })}
         {...formProps}
       >
-        <Row {...rowProps} type={rowProps?.type ?? 'flex'}>
+        <Row
+          {...rowProps}
+          type={rowProps?.type ?? 'flex'}
+          align={inlineAction ? 'bottom' : rowProps?.align}
+        >
           {children}
+          {inlineAction && (
+            <Col style={{ flex: '0 0 auto' }}>
+              <FormAction
+                {...actionProps}
+                inline
+                hidden={readonly}
+                showSubmit={showSubmit}
+                showReset={showReset}
+                submitText={submitText}
+                resetText={resetText}
+                loading={loading}
+                submitButtonProps={submitButtonProps}
+                resetButtonProps={resetButtonProps}
+              />
+            </Col>
+          )}
         </Row>
-        <div className="form-footer">
-          <FormAction
-            {...actionProps}
-            hidden={readonly}
-            showSubmit={showSubmit}
-            showReset={showReset}
-            submitText={submitText}
-            resetText={resetText}
-            loading={loading}
-            submitButtonProps={submitButtonProps}
-            resetButtonProps={resetButtonProps}
-          />
-          {!!footer && footer}
-        </div>
+        {!inlineAction && (
+          <div className="form-footer">
+            <FormAction
+              {...actionProps}
+              hidden={readonly}
+              showSubmit={showSubmit}
+              showReset={showReset}
+              submitText={submitText}
+              resetText={resetText}
+              loading={loading}
+              submitButtonProps={submitButtonProps}
+              resetButtonProps={resetButtonProps}
+            />
+            {!!footer && footer}
+          </div>
+        )}
+        {inlineAction && !!footer && footer}
       </Form>
     </ProFormContext.Provider>
   );

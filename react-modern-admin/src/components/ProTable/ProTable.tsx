@@ -2,12 +2,28 @@ import type { BasicRecord } from '@/types';
 import { clsx } from '@/utils';
 import type { RowSelectionProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useCallback, useMemo, useState } from 'react';
+import ProTableSettings from './components/ProTableSettings';
+import type { ProTableSize } from './components/ProTableSettings';
 import ProTableContent from './ProTableContent';
 import ProTableSearch from './ProTableSearch';
 import ProTableToolbar from './ProTableToolbar';
 import { useProTableInstance } from './hooks/useProTableInstance';
 import { useProTableRequest } from './hooks/useProTableRequest';
-import type { ProTableActionRef, ProTableProps } from './types';
+import type { ProTableActionRef, ProTableProps, ProTableToolbarConfig } from './types';
+
+const resolveToolbarSettings = (settings?: ProTableToolbarConfig['settings']) => {
+  if (!settings) {
+    return { columns: false, density: false, refresh: false };
+  }
+  if (settings === true) {
+    return { columns: true, density: true, refresh: true };
+  }
+  return {
+    columns: Boolean(settings.columns),
+    density: Boolean(settings.density),
+    refresh: Boolean(settings.refresh),
+  };
+};
 
 /**
  * ProTable - 高级表格组件
@@ -161,53 +177,98 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
     };
   }, [rowSelection, selectedRowKeys]);
 
+  // 表格显示设置
+  const [hiddenColumnKeys, setHiddenColumnKeys] = useState<string[]>([]);
+  const [tableSize, setTableSize] = useState<ProTableSize>('default');
+
+  const settingsConfig = resolveToolbarSettings(toolbar?.settings);
+  const hasSettings =
+    settingsConfig.columns || settingsConfig.density || settingsConfig.refresh;
+
+  const visibleColumns = useMemo(
+    () =>
+      columns.filter(column => {
+        if (column.type === 'option' || !column.name) {
+          return true;
+        }
+        return !hiddenColumnKeys.includes(String(column.name));
+      }),
+    [columns, hiddenColumnKeys],
+  );
+
   // 工具栏渲染
-  const toolbarContent = useMemo(() => {
-    if (!toolbar) {
-      return null;
-    }
-
-    const defaultDom = (
-      <ProTableToolbar
-        title={toolbar.title}
-        subTitle={toolbar.subTitle}
-        actions={toolbar.actions}
-      />
-    );
-
-    if (toolbar.render) {
-      return toolbar.render(toolbar, defaultDom);
-    }
-
-    return defaultDom;
-  }, [toolbar]);
+  const hasTitleRow = Boolean(
+    toolbar?.title ||
+      toolbar?.subTitle ||
+      toolbar?.tools?.length ||
+      hasSettings,
+  );
+  const toolbarActions = toolbar?.actions;
+  const hasSearchRow = !hiddenSearch || Boolean(toolbarActions?.length);
 
   return (
-    <div className={clsx('pro-table flex flex-col gap-3', className)}>
-      {/* 搜索表单 */}
-      {!hiddenSearch && (
-        <ProTableSearch<T>
-          columns={columns}
-          onSearch={handleSearch}
-          onReset={handleReset}
-          {...searchProps}
+    <div className={clsx('pro-table flex flex-col gap-4', className)}>
+      <div className="rounded-xl border border-semi-color-border bg-semi-color-bg-1 p-4">
+        {hasSearchRow ? (
+          <div className="pro-table-search-row mb-3 flex items-center gap-3">
+            {!hiddenSearch && (
+              <ProTableSearch<T>
+                columns={columns}
+                onSearch={handleSearch}
+                onReset={handleReset}
+                {...searchProps}
+              />
+            )}
+            {toolbarActions?.length ? (
+              <div className="ml-auto flex min-w-0 items-center gap-2">
+                {toolbarActions.map((action, index) => (
+                  <span key={index}>{action}</span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {hasTitleRow ? (
+          <ProTableToolbar
+            className="mb-2"
+            title={toolbar?.title}
+            subTitle={
+              toolbar?.subTitle ??
+              (toolbar?.title ? `共 ${total} 条` : undefined)
+            }
+            actions={toolbar?.tools}
+            settings={
+              hasSettings ? (
+                <ProTableSettings
+                  columns={columns}
+                  hiddenColumnKeys={hiddenColumnKeys}
+                  onHiddenColumnKeysChange={setHiddenColumnKeys}
+                  size={tableSize}
+                  onSizeChange={setTableSize}
+                  onRefresh={reload}
+                  loading={loading}
+                  showColumns={settingsConfig.columns}
+                  showDensity={settingsConfig.density}
+                  showRefresh={settingsConfig.refresh}
+                />
+              ) : null
+            }
+          />
+        ) : null}
+
+        <ProTableContent<T>
+          {...restTableProps}
+          columns={visibleColumns}
+          actionRef={actionRef}
+          dataSource={dataSource}
+          loading={loading}
+          rowKey={rowKey}
+          rowSelection={tableRowSelection}
+          pagination={tablePagination}
+          size={settingsConfig.density ? tableSize : restTableProps.size}
         />
-      )}
-
-      {/* 工具栏 */}
-      {toolbarContent}
-
-      {/* 表格内容 */}
-      <ProTableContent<T>
-        columns={columns}
-        actionRef={actionRef}
-        dataSource={dataSource}
-        loading={loading}
-        rowKey={rowKey}
-        rowSelection={tableRowSelection}
-        pagination={tablePagination}
-        {...restTableProps}
-      />
+      </div>
     </div>
   );
 };

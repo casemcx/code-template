@@ -10,7 +10,11 @@ export interface OptionItem {
   /**
    * 状态类型（用于 Tag 颜色）
    */
-  status?: 'success' | 'error' | 'warning' | 'default' | 'processing';
+  status?: 'success' | 'error' | 'warning' | 'default' | 'processing' | 'danger';
+  /**
+   * 兼容 Semi optionList 的 type 字段
+   */
+  type?: 'success' | 'error' | 'warning' | 'default' | 'processing' | 'danger';
   /**
    * 自定义颜色
    */

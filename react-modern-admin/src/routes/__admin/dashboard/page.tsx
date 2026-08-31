@@ -1,6 +1,7 @@
 import { ProTable } from '@/components/ProTable';
 import type { ProColumns, ProTableRequestParams } from '@/components/ProTable';
-import { IconDelete, IconEdit, IconRefresh } from '@douyinfe/semi-icons';
+import { applySearchParams } from '@/components/ProTable';
+import { IconDelete, IconEdit } from '@douyinfe/semi-icons';
 import { Button, Modal, Space, Toast } from '@douyinfe/semi-ui';
 
 /**
@@ -28,9 +29,6 @@ interface UserRecord {
  */
 const mockRequest = async (params: ProTableRequestParams<UserRecord>) => {
   const { current, pageSize } = params.pagination;
-  const keyword = params.params.keyword as string | undefined;
-  const status = params.params.status as string | undefined;
-  const role = params.params.role as string | undefined;
 
   // 模拟网络延迟
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -52,22 +50,11 @@ const mockRequest = async (params: ProTableRequestParams<UserRecord>) => {
     description: `这是用户${i + 1}的详细描述信息，可能包含很长的文本内容`,
   }));
 
-  // 过滤数据
-  let filteredData = allData;
-  if (keyword) {
-    filteredData = filteredData.filter(
-      item =>
-        item.name.includes(keyword) ||
-        item.email.includes(keyword) ||
-        item.phone.includes(keyword),
-    );
-  }
-  if (status) {
-    filteredData = filteredData.filter(item => item.status === status);
-  }
-  if (role) {
-    filteredData = filteredData.filter(item => item.role === role);
-  }
+  const filteredData = applySearchParams(allData, params.params, [
+    'name',
+    'email',
+    'phone',
+  ]);
 
   // 分页
   const start = (current - 1) * pageSize;
@@ -253,25 +240,46 @@ const Dashboard = () => {
   ];
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="flex flex-col gap-4">
       <ProTable<UserRecord>
         columns={columns}
         request={mockRequest}
         rowKey="id"
+        searchProps={{
+          views: [
+            {
+              key: 'pending',
+              label: '待审核',
+              conditions: [
+                { field: 'status', operator: 'in', value: ['pending'] },
+              ],
+            },
+            {
+              key: 'active',
+              label: '启用中',
+              conditions: [
+                { field: 'status', operator: 'in', value: ['active'] },
+              ],
+            },
+            {
+              key: 'inactive',
+              label: '已禁用',
+              conditions: [
+                { field: 'status', operator: 'in', value: ['inactive'] },
+              ],
+            },
+            {
+              key: 'admin',
+              label: '管理员',
+              conditions: [{ field: 'role', operator: 'in', value: ['admin'] }],
+            },
+          ],
+        }}
         toolbar={{
-          title: '用户管理',
-          subTitle: '共 100 条数据',
+          title: '用户列表',
           actions: [
             <Button key="add" theme="solid" type="primary">
               新增用户
-            </Button>,
-            <Button
-              key="batch"
-              theme="solid"
-              type="tertiary"
-              icon={<IconRefresh />}
-            >
-              批量操作
             </Button>,
           ],
           settings: {
@@ -283,12 +291,6 @@ const Dashboard = () => {
         pagination={{
           showSizeChanger: true,
           pageSizeOpts: [10, 20, 50, 100],
-        }}
-        onSearch={params => {
-          console.log('搜索参数:', params);
-        }}
-        onLoad={data => {
-          console.log('数据加载完成:', data.length);
         }}
       />
     </div>

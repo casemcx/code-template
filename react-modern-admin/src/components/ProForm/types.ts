@@ -41,6 +41,11 @@ export type FormActionProps = HTMLAttributes<HTMLDivElement> &
      * @description 后
      */
     after?: ReactNode;
+
+    /**
+     * 与表单项同一行展示（搜索场景）
+     */
+    inline?: boolean;
   };
 
 export interface ProFormProps<T extends BasicRecord = BasicRecord>

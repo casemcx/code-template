@@ -24,7 +24,7 @@ const Logo: FC<LogoProps> = memo(({ logo, title }) => {
     <div className="flex items-center gap-2 h-full">
       {renderLogo()}
       {title && (
-        <h1 className="text-lg font-semibold text-semi-color-text-0 m-0 whitespace-nowrap">
+        <h1 className="text-base font-semibold text-semi-color-text-0 m-0 whitespace-nowrap tracking-tight">
           {title}
         </h1>
       )}

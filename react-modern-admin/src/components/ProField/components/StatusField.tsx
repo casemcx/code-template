@@ -12,6 +12,7 @@ export interface StatusFieldComponentProps extends ProFieldBaseProps {
 const statusColors: Record<string, TagColor> = {
   success: 'green',
   error: 'red',
+  danger: 'red',
   warning: 'orange',
   default: 'grey',
   processing: 'blue',
@@ -41,7 +42,10 @@ const StatusField = ({
     return <span className={className}>{String(value)}</span>;
   }
 
-  const color = option.color || statusColors[option.status || 'default'];
+  const color =
+    option.color ||
+    statusColors[option.status || option.type || 'default'] ||
+    'grey';
 
   return (
     <span className={className}>

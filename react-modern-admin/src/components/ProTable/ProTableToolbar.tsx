@@ -15,31 +15,34 @@ const ProTableToolbar = (props: ProTableToolbarProps) => {
   return (
     <div
       className={clsx(
-        'pro-table-toolbar flex items-center justify-between py-2',
+        'pro-table-toolbar flex w-full min-w-0 items-center',
         className,
       )}
     >
-      {/* 左侧区域 */}
-      <div className="pro-table-toolbar-left">
-        {title && (
-          <div className="pro-table-toolbar-title text-lg font-medium">
+      <div className="pro-table-toolbar-left flex min-w-0 items-center gap-2">
+        {title ? (
+          <div className="pro-table-toolbar-title truncate text-sm font-semibold text-semi-color-text-0">
             {title}
           </div>
-        )}
-        {subTitle && (
-          <div className="pro-table-toolbar-subtitle text-sm text-gray-500">
+        ) : null}
+        {title && subTitle ? (
+          <span className="text-semi-color-fill-2">·</span>
+        ) : null}
+        {subTitle ? (
+          <div className="pro-table-toolbar-subtitle shrink-0 text-xs text-semi-color-text-2">
             {subTitle}
           </div>
-        )}
+        ) : null}
       </div>
 
-      {/* 右侧区域 */}
-      <div className="pro-table-toolbar-right flex items-center gap-2">
-        {actions?.map((action, index) => (
-          <span key={index}>{action}</span>
-        ))}
-        {settings}
-      </div>
+      {actions?.length || settings ? (
+        <div className="pro-table-toolbar-right ml-auto flex shrink-0 items-center gap-1">
+          {actions?.map((action, index) => (
+            <span key={index}>{action}</span>
+          ))}
+          {settings}
+        </div>
+      ) : null}
     </div>
   );
 };

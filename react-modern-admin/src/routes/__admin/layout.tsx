@@ -1,5 +1,6 @@
 import { IconBell, IconExit, IconHelpCircle } from '@douyinfe/semi-icons';
 import { useLocation, useNavigate } from '@modern-js/runtime/router';
+import { useMemo } from 'react';
 
 import { LangSwitch } from '@/components/LangSwitch';
 import {
@@ -23,9 +24,23 @@ const AdminLayout = () => {
   // 定义菜单项
   const { items: menuItems } = userMenuItems();
 
+  const selectedKeys = useMemo(() => {
+    const path = location.pathname;
+    if (path === '/' || path === '/dashboard') {
+      return ['/dashboard'];
+    }
+    return [path];
+  }, [location.pathname]);
+
+  const defaultOpenKeys = ['/user'];
+
   // 菜单选择处理（使用 Semi 原生 OnSelectedData 类型）
   const handleMenuSelect = (data: OnSelectedData) => {
-    navigate(data.itemKey as string);
+    const key = String(data.itemKey);
+    if (!key || key === '/user') {
+      return;
+    }
+    navigate(key.startsWith('/') ? key : `/${key}`);
   };
 
   // 登出处理
@@ -68,7 +83,8 @@ const AdminLayout = () => {
     <ProLayout
       title={intl.get('layout.menu.appName')}
       menuItems={menuItems}
-      selectedKeys={[location.pathname]}
+      selectedKeys={selectedKeys}
+      defaultOpenKeys={defaultOpenKeys}
       onSelect={handleMenuSelect}
       headerRightContent={<LangSwitch />}
       headerActions={headerActions}

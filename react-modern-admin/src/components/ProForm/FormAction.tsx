@@ -19,13 +19,19 @@ const FormActions: React.FC<FormActionProps> = props => {
     hidden,
     before,
     after,
+    inline = false,
   } = props;
 
   return (
     <div
-      className={clsx('flex w-full pt-4', className, {
-        hidden: hidden,
-      })}
+      className={clsx(
+        'flex',
+        inline ? 'items-end' : 'w-full pt-4',
+        className,
+        {
+          hidden: hidden,
+        },
+      )}
     >
       {!hidden && (
         <Space>
@@ -38,6 +44,7 @@ const FormActions: React.FC<FormActionProps> = props => {
           {showSubmit && (
             <Button
               type="primary"
+              theme="solid"
               htmlType="submit"
               loading={loading}
               {...submitButtonProps}

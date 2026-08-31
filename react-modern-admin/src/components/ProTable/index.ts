@@ -18,6 +18,16 @@ export {
   convertToSemiColumns,
   convertToSchemaProps,
 } from './utils/columnHelper';
+export {
+  applySearchParams,
+  buildSearchParams,
+  getQueryFields,
+} from './utils/queryConditions';
+
+export type {
+  QueryCondition,
+  QueryOperator,
+} from './utils/queryConditions';
 
 // Types
 export type {
@@ -26,6 +36,7 @@ export type {
   ProColumnSearchConfig,
   ProTableProps,
   ProTableSearchProps,
+  ProTableSearchView,
   ProTableToolbarProps,
   ProTableContentProps,
   ProTableInstance,

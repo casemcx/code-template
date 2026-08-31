@@ -15,7 +15,7 @@ export const userMenuItems = () => {
   const items = useMemo(
     () => [
       {
-        itemKey: 'dashboard',
+        itemKey: '/dashboard',
         text: intl.get('layout.menu.dashboard'),
         icon: (
           <Icon size="small" svg={<DashboardSvg width={20} height={20} />} />

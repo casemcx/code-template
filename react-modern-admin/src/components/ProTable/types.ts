@@ -1,11 +1,8 @@
-import type {
-  FormInstance,
-  SchemaFormProps,
-  SchemaProps,
-} from '@/components/ProForm';
+import type { FormInstance, SchemaProps } from '@/components/ProForm';
 import type { BasicRecord } from '@/types';
 import type { ColumnProps, TableProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { ReactNode, Ref } from 'react';
+import type { QueryOperator } from './utils/queryConditions';
 
 /**
  * 扩展的值类型（在 SchemaProps 的 type 基础上增加表格专用类型）
@@ -221,11 +218,15 @@ export interface ProTableToolbarConfig {
    */
   subTitle?: ReactNode;
   /**
-   * 操作区域
+   * 搜索行右侧操作（如新增）
    */
   actions?: ReactNode[];
   /**
-   * 是否显示表格设置
+   * 标题行右侧自定义操作，显示在表格设置之前
+   */
+  tools?: ReactNode[];
+  /**
+   * 标题行右侧表格设置：刷新、列显示、密度
    * @default false
    */
   settings?:
@@ -242,32 +243,59 @@ export interface ProTableToolbarConfig {
 }
 
 /**
- * 搜索表单 Props
+ * 快捷搜索视图
  */
-export interface ProTableSearchProps<T extends BasicRecord>
-  extends Omit<SchemaFormProps<T>, 'columns'> {
+export interface ProTableSearchView {
+  key: string;
+  label: string;
+  keyword?: string;
+  conditions?: Array<{
+    field: string;
+    operator?: QueryOperator;
+    value?: unknown;
+  }>;
+  /**
+   * 是否允许删除（用户保存的视图为 true）
+   */
+  closable?: boolean;
+}
+
+/**
+ * 搜索栏 Props
+ */
+export interface ProTableSearchProps<T extends BasicRecord> {
   /**
    * 搜索列配置（从 ProColumns 提取）
    */
   columns: ProColumns<T>[];
   /**
-   * 是否折叠
+   * 关键字占位符
    */
-  collapsed?: boolean;
+  keywordPlaceholder?: string;
   /**
-   * 是否默认折叠
-   * @default true
+   * 搜索控件前的自定义内容
    */
-  defaultCollapsed?: boolean;
+  before?: ReactNode;
   /**
-   * 折叠时显示的字段数量
-   * @default 3
+   * 搜索控件后的自定义内容
    */
-  collapseCount?: number;
+  after?: ReactNode;
   /**
-   * 折叠切换回调
+   * 快捷视图，点击后套用对应查询条件并立即查询
    */
-  onCollapsedChange?: (collapsed: boolean) => void;
+  views?: ProTableSearchView[];
+  /**
+   * 保存视图回调；不传则仅保存在当前表格内
+   */
+  onViewSave?: (view: ProTableSearchView) => void;
+  /**
+   * 删除视图回调
+   */
+  onViewRemove?: (key: string) => void;
+  /**
+   * 切换视图回调
+   */
+  onViewChange?: (view: ProTableSearchView) => void;
   /**
    * 搜索回调
    */
@@ -277,9 +305,9 @@ export interface ProTableSearchProps<T extends BasicRecord>
    */
   onReset?: () => void;
   /**
-   * 表单引用
+   * 自定义类名
    */
-  formRef?: Ref<FormInstance<Record<string, unknown>>>;
+  className?: string;
 }
 
 /**

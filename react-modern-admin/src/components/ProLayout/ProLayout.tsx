@@ -55,7 +55,7 @@ const ProLayout: FC<ProLayoutProps> = memo(
       <Layout
         className={clsx(
           styles['pro-layout'],
-          'w-full h-screen flex flex-col',
+          'w-full h-screen overflow-hidden flex flex-col',
           className,
         )}
         style={style}
@@ -83,10 +83,10 @@ const ProLayout: FC<ProLayoutProps> = memo(
         )}
 
         {/* Main Layout (Sider + Content) */}
-        <Layout>
+        <Layout className="flex-1 min-h-0 overflow-hidden">
           {/* Sider */}
           {!hideSider && (
-            <Sider style={siderStyle} className="flex">
+            <Sider style={siderStyle} className="h-full overflow-hidden">
               <Nav
                 items={menuItems}
                 style={{ maxWidth: siderWidth, height: '100%' }}
@@ -105,7 +105,10 @@ const ProLayout: FC<ProLayoutProps> = memo(
           )}
 
           {/* Content */}
-          <Content style={contentStyle} className="p-4 overflow-auto h-full">
+          <Content
+            style={contentStyle}
+            className="min-h-0 flex-1 overflow-auto p-5"
+          >
             {children ?? <Outlet />}
           </Content>
         </Layout>
