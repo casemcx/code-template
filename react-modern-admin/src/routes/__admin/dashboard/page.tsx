@@ -1,4 +1,4 @@
-import { ProTable } from '@/components/ProTable';
+import { ProTable, useProTableContext } from '@/components/ProTable';
 import type { ProColumns, ProTableRequestParams } from '@/components/ProTable';
 import { applySearchParams } from '@/components/ProTable';
 import { IconDelete, IconEdit } from '@douyinfe/semi-icons';
@@ -68,10 +68,39 @@ const mockRequest = async (params: ProTableRequestParams<UserRecord>) => {
   };
 };
 
+const BatchDeleteButton = () => {
+  const { selectedRowKeys, selectedRows, clearSelected } =
+    useProTableContext<UserRecord>();
+  const count = selectedRowKeys.length;
+
+  return (
+    <Button
+      type="danger"
+      theme="light"
+      icon={<IconDelete />}
+      disabled={count === 0}
+      onClick={() => {
+        Modal.confirm({
+          title: '批量删除',
+          content: `确定删除选中的 ${count} 个用户吗？`,
+          onOk: () => {
+            Toast.success(
+              `已删除: ${selectedRows.map(item => item.name).join('、')}`,
+            );
+            clearSelected();
+          },
+        });
+      }}
+    >
+      {count > 0 ? `批量删除 (${count})` : '批量删除'}
+    </Button>
+  );
+};
+
 /**
  * ProTable 完整示例
  */
-const Dashboard = () => {
+export default function Dashboard() {
   const handleDelete = (record: UserRecord) => {
     Modal.confirm({
       title: '确认删除',
@@ -275,6 +304,7 @@ const Dashboard = () => {
             },
           ],
         }}
+        rowSelection
         toolbar={{
           title: '用户列表',
           actions: [
@@ -282,6 +312,7 @@ const Dashboard = () => {
               新增用户
             </Button>,
           ],
+          tools: [<BatchDeleteButton key="batch-delete" />],
           settings: {
             columns: true,
             density: true,
@@ -295,6 +326,4 @@ const Dashboard = () => {
       />
     </div>
   );
-};
-
-export default Dashboard;
+}

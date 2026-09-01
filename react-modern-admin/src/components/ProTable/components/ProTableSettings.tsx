@@ -1,7 +1,11 @@
 import type { BasicRecord } from '@/types';
 import { clsx } from '@/utils';
-import { IconRefresh, IconSettingStroked, IconTick } from '@douyinfe/semi-icons';
-import { Button, Popover, Tooltip } from '@douyinfe/semi-ui';
+import {
+  IconRefresh,
+  IconSettingStroked,
+  IconTick,
+} from '@douyinfe/semi-icons';
+import { Button, ButtonGroup, Popover, Tooltip } from '@douyinfe/semi-ui';
 import { useMemo, useState } from 'react';
 import '../styles/settings.css';
 import type { ProColumns } from '../types';
@@ -153,7 +157,7 @@ const ProTableSettings = <T extends BasicRecord>(
   );
 
   return (
-    <div className="pro-table-tools">
+    <ButtonGroup className="pro-table-tools">
       {showRefresh ? (
         <Tooltip content="刷新">
           <Button
@@ -192,7 +196,7 @@ const ProTableSettings = <T extends BasicRecord>(
           </span>
         </Popover>
       ) : null}
-    </div>
+    </ButtonGroup>
   );
 };
 

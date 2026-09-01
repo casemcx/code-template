@@ -1,7 +1,15 @@
-export { default as ProTable } from './ProTable';
-export { default as ProTableSearch } from './ProTableSearch';
-export { default as ProTableToolbar } from './ProTableToolbar';
-export { default as ProTableContent } from './ProTableContent';
+import ProTable from './ProTable';
+import ProTableContent from './ProTableContent';
+import ProTableSearch from './ProTableSearch';
+import ProTableToolbar from './ProTableToolbar';
+
+export { ProTable, ProTableSearch, ProTableToolbar, ProTableContent };
+export {
+  ProTableContext,
+  ProTableProvider,
+  useProTableContext,
+} from './context';
+export type { ProTableContextValue } from './context';
 
 // Hooks
 export { useProTableRequest } from './hooks/useProTableRequest';

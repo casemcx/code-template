@@ -13,7 +13,7 @@ import { useLocale } from '@/locales';
 import { useUserStore } from '@/stores/user';
 import { userMenuItems } from './menu-items';
 
-const AdminLayout = () => {
+export default function AdminLayout() {
   const location = useLocation();
   const intl = useLocale();
   const navigate = useNavigate();
@@ -95,6 +95,4 @@ const AdminLayout = () => {
       onLogout={handleLogout}
     />
   );
-};
-
-export default AdminLayout;
+}

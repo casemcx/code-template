@@ -1,17 +1,24 @@
 import type { BasicRecord } from '@/types';
 import { clsx } from '@/utils';
 import type { RowSelectionProps } from '@douyinfe/semi-ui/lib/es/table';
-import { useCallback, useMemo, useState } from 'react';
-import ProTableSettings from './components/ProTableSettings';
-import type { ProTableSize } from './components/ProTableSettings';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import ProTableContent from './ProTableContent';
 import ProTableSearch from './ProTableSearch';
 import ProTableToolbar from './ProTableToolbar';
+import ProTableSettings from './components/ProTableSettings';
+import type { ProTableSize } from './components/ProTableSettings';
+import { ProTableContext } from './context';
 import { useProTableInstance } from './hooks/useProTableInstance';
 import { useProTableRequest } from './hooks/useProTableRequest';
-import type { ProTableActionRef, ProTableProps, ProTableToolbarConfig } from './types';
+import type {
+  ProTableActionRef,
+  ProTableProps,
+  ProTableToolbarConfig,
+} from './types';
 
-const resolveToolbarSettings = (settings?: ProTableToolbarConfig['settings']) => {
+const resolveToolbarSettings = (
+  settings?: ProTableToolbarConfig['settings'],
+) => {
   if (!settings) {
     return { columns: false, density: false, refresh: false };
   }
@@ -34,7 +41,7 @@ const resolveToolbarSettings = (settings?: ProTableToolbarConfig['settings']) =>
  * - 工具栏和操作列
  * - 行选择和批量操作
  */
-const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
+function ProTable<T extends BasicRecord>(props: ProTableProps<T>) {
   const {
     columns,
     dataSource: staticDataSource,
@@ -55,13 +62,38 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
     ...restTableProps
   } = props;
 
-  // 选中行状态
-  const [selectedRowKeys, setSelectedRowKeys] = useState<(string | number)[]>(
-    [],
-  );
+  const tableContext = useContext(ProTableContext);
+  const setContextSelectedRowKeys = tableContext?.setSelectedRowKeys;
 
-  // 表单实例引用（暂时保留，后续可用于获取表单实例）
-  // const formRef = useRef<FormInstance<Record<string, unknown>>>();
+  const rowSelectionConfig =
+    !rowSelection || typeof rowSelection === 'boolean'
+      ? undefined
+      : rowSelection;
+  const isSelectionControlled =
+    rowSelectionConfig?.selectedRowKeys !== undefined;
+  const userSelectionOnChange = rowSelectionConfig?.onChange;
+
+  const [innerSelectedRowKeys, setInnerSelectedRowKeys] = useState<
+    (string | number)[]
+  >(() => rowSelectionConfig?.selectedRowKeys ?? []);
+
+  const selectedRowKeys = isSelectionControlled
+    ? (rowSelectionConfig.selectedRowKeys ?? [])
+    : (tableContext?.selectedRowKeys ?? innerSelectedRowKeys);
+
+  const handleSelectedChange = useCallback(
+    (keys: (string | number)[] = [], rows?: T[]) => {
+      if (!isSelectionControlled) {
+        if (setContextSelectedRowKeys) {
+          setContextSelectedRowKeys(keys, rows);
+        } else {
+          setInnerSelectedRowKeys(keys);
+        }
+      }
+      userSelectionOnChange?.(keys, rows);
+    },
+    [isSelectionControlled, setContextSelectedRowKeys, userSelectionOnChange],
+  );
 
   // 数据请求
   const {
@@ -86,10 +118,9 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
   // 最终数据源（静态数据或请求数据）
   const dataSource = staticDataSource ?? requestDataSource;
 
-  // 清空选中
   const clearSelected = useCallback(() => {
-    setSelectedRowKeys([]);
-  }, []);
+    handleSelectedChange([], []);
+  }, [handleSelectedChange]);
 
   // 获取搜索参数
   const getSearchParams = useCallback(() => searchParams, [searchParams]);
@@ -104,7 +135,10 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
     selectedRowKeys,
     dataSource,
     clearSelected,
-    rowKey: typeof rowKey === 'string' ? rowKey : undefined,
+    rowKey:
+      typeof rowKey === 'string' || typeof rowKey === 'function'
+        ? rowKey
+        : undefined,
   });
 
   // Action 引用（传递给列的 render 函数）
@@ -165,17 +199,9 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
     return {
       ...baseConfig,
       selectedRowKeys,
-      onChange: (
-        keys: (string | number)[] | undefined,
-        rows: T[] | undefined,
-      ) => {
-        setSelectedRowKeys(keys || []);
-        if (typeof rowSelection !== 'boolean') {
-          rowSelection.onChange?.(keys, rows);
-        }
-      },
+      onChange: handleSelectedChange,
     };
-  }, [rowSelection, selectedRowKeys]);
+  }, [rowSelection, selectedRowKeys, handleSelectedChange]);
 
   // 表格显示设置
   const [hiddenColumnKeys, setHiddenColumnKeys] = useState<string[]>([]);
@@ -206,6 +232,12 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
   const toolbarActions = toolbar?.actions;
   const hasSearchRow = !hiddenSearch || Boolean(toolbarActions?.length);
 
+  const defaultSubTitle = toolbar?.title
+    ? selectedRowKeys.length > 0
+      ? `共 ${total} 条 · 已选择 ${selectedRowKeys.length} 项`
+      : `共 ${total} 条`
+    : undefined;
+
   return (
     <div className={clsx('pro-table flex flex-col gap-4', className)}>
       <div className="rounded-xl border border-semi-color-border bg-semi-color-bg-1 p-4">
@@ -233,10 +265,7 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
           <ProTableToolbar
             className="mb-2"
             title={toolbar?.title}
-            subTitle={
-              toolbar?.subTitle ??
-              (toolbar?.title ? `共 ${total} 条` : undefined)
-            }
+            subTitle={toolbar?.subTitle ?? defaultSubTitle}
             actions={toolbar?.tools}
             settings={
               hasSettings ? (
@@ -271,7 +300,7 @@ const ProTable = <T extends BasicRecord>(props: ProTableProps<T>) => {
       </div>
     </div>
   );
-};
+}
 
 ProTable.displayName = 'ProTable';
 
